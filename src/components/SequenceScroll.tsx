@@ -346,17 +346,45 @@ function HeroTextOverlays({
           Wujudkan Rumah Impian Anda
         </motion.p>
         <motion.div
-          className="mt-6 md:mt-8 flex items-center gap-2 text-gray-400"
+          className="mt-6 md:mt-8 flex items-center gap-3 text-gray-700"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.8, duration: 0.6 }}
         >
-          <motion.div
-            className="w-px h-6 md:h-8 bg-gold/50"
-            animate={{ scaleY: [1, 0.5, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase">Scroll</span>
+          {/* Animated chevrons */}
+          <div className="flex flex-col items-center gap-[2px]">
+            {[0, 1, 2].map((i) => (
+              <motion.svg
+                key={i}
+                width="14"
+                height="8"
+                viewBox="0 0 14 8"
+                fill="none"
+                className="text-gray-800"
+                animate={{
+                  y: [0, 3, 0],
+                  opacity: [0.4, 1, 0.4],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "easeInOut",
+                }}
+              >
+                <path
+                  d="M1 1L7 7L13 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </motion.svg>
+            ))}
+          </div>
+          <span className="text-[11px] md:text-sm tracking-[0.25em] uppercase font-semibold text-gray-700">
+            Scroll Down
+          </span>
         </motion.div>
       </motion.div>
 
