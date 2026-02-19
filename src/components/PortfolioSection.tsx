@@ -50,7 +50,7 @@ export default function PortfolioSection() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between max-w-7xl mx-auto">
             <div>
               <motion.p
-                className="text-xs tracking-[0.4em] uppercase text-gold mb-4"
+                className="text-sm tracking-[0.4em] uppercase text-gold mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -101,7 +101,7 @@ export default function PortfolioSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                  <p className="text-gold text-xs tracking-[0.2em] uppercase mb-2">
+                  <p className="text-gold text-sm tracking-[0.2em] uppercase mb-2">
                     {item.subtitle}
                   </p>
                   <h3 className="text-white text-xl md:text-3xl font-semibold tracking-tight">

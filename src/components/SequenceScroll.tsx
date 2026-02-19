@@ -297,20 +297,20 @@ function HeroTextOverlays({
   scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
   // Title at 0%
-  const titleOpacity = useTransform(scrollProgress, [0, 0.08, 0.18, 0.25], [1, 1, 0, 0]);
-  const titleY = useTransform(scrollProgress, [0, 0.18], [0, -60]);
+  const titleOpacity = useTransform(scrollProgress, [0, 0.05, 0.12, 0.18], [1, 1, 0, 0]);
+  const titleY = useTransform(scrollProgress, [0, 0.12], [0, -60]);
 
-  // Slogan 1 at 30%
-  const slogan1Opacity = useTransform(scrollProgress, [0.22, 0.28, 0.38, 0.45], [0, 1, 1, 0]);
-  const slogan1Y = useTransform(scrollProgress, [0.22, 0.28], [40, 0]);
+  // Slogan 1 at 20%
+  const slogan1Opacity = useTransform(scrollProgress, [0.15, 0.20, 0.30, 0.35], [0, 1, 1, 0]);
+  const slogan1Y = useTransform(scrollProgress, [0.15, 0.20], [40, 0]);
 
-  // Slogan 2 at 60%
-  const slogan2Opacity = useTransform(scrollProgress, [0.50, 0.56, 0.66, 0.73], [0, 1, 1, 0]);
-  const slogan2Y = useTransform(scrollProgress, [0.50, 0.56], [40, 0]);
+  // Slogan 2 at 40%
+  const slogan2Opacity = useTransform(scrollProgress, [0.38, 0.43, 0.53, 0.58], [0, 1, 1, 0]);
+  const slogan2Y = useTransform(scrollProgress, [0.38, 0.43], [40, 0]);
 
-  // CTA at 90%
-  const ctaOpacity = useTransform(scrollProgress, [0.78, 0.85, 0.95, 1], [0, 1, 1, 1]);
-  const ctaScale = useTransform(scrollProgress, [0.78, 0.85], [0.9, 1]);
+  // CTA at 60% (Visible until covered by next section at ~75-80%)
+  const ctaOpacity = useTransform(scrollProgress, [0.60, 0.65, 0.85, 0.9], [0, 1, 1, 0]);
+  const ctaScale = useTransform(scrollProgress, [0.60, 0.65], [0.9, 1]);
 
   return (
     <div className="absolute inset-0 pointer-events-none">
@@ -388,38 +388,38 @@ function HeroTextOverlays({
         </motion.div>
       </motion.div>
 
-      {/* Slogan 1 — Bottom left on mobile, center left on desktop */}
+      {/* Slogan 1 — Left aligned on all screens */}
       <motion.div
-        className="absolute inset-0 flex items-end md:items-center px-4 pb-16 md:pb-0 md:px-16 lg:px-24"
+        className="absolute inset-0 flex items-center justify-start px-6 md:px-16 lg:px-24"
         style={{ opacity: slogan1Opacity, y: slogan1Y }}
       >
-        <div className="max-w-xl">
-          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gold mb-2 md:mb-4">Visi Kami</p>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-gray-800">
+        <div className="max-w-xl text-left">
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gold mb-2 md:mb-4 drop-shadow-md">Visi Kami</p>
+          <h2 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-gray-800 drop-shadow-lg">
             Membangun Impian,
             <br />
-            <span className="gold-gradient-text">Mewujudkan Kenyataan</span>
+            <span className="gold-gradient-text drop-shadow-sm">Mewujudkan Kenyataan</span>
           </h2>
-          <p className="hidden md:block text-sm md:text-base text-gray-500 mt-4 max-w-sm leading-relaxed">
+          <p className="text-sm md:text-base text-gray-600 md:text-gray-500 mt-4 max-w-sm leading-relaxed font-medium md:font-normal drop-shadow-md">
             Setiap proyek dimulai dari sebuah visi. Kami hadir untuk merancang dan membangun ruang
             yang mencerminkan impian Anda.
           </p>
         </div>
       </motion.div>
 
-      {/* Slogan 2 — Bottom right on mobile, center right on desktop */}
+      {/* Slogan 2 — Right aligned on all screens */}
       <motion.div
-        className="absolute inset-0 flex items-end md:items-center justify-end px-4 pb-16 md:pb-0 md:px-16 lg:px-24"
+        className="absolute inset-0 flex items-center justify-end px-6 md:px-16 lg:px-24"
         style={{ opacity: slogan2Opacity, y: slogan2Y }}
       >
         <div className="max-w-xl text-right">
-          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gold mb-2 md:mb-4">Komitmen</p>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-gray-800">
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gold mb-2 md:mb-4 drop-shadow-md">Komitmen</p>
+          <h2 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-gray-800 drop-shadow-lg">
             Renovasi Tanpa Batas,
             <br />
-            <span className="gold-gradient-text">Kualitas Tanpa Kompromi</span>
+            <span className="gold-gradient-text drop-shadow-sm">Kualitas Tanpa Kompromi</span>
           </h2>
-          <p className="hidden md:block text-sm md:text-base text-gray-500 mt-4 max-w-sm ml-auto leading-relaxed">
+          <p className="text-sm md:text-base text-gray-600 md:text-gray-500 mt-4 max-w-sm ml-auto leading-relaxed font-medium md:font-normal drop-shadow-md">
             Dengan material terbaik dan tim ahli berpengalaman, kami menjamin hasil yang melebihi
             ekspektasi Anda.
           </p>

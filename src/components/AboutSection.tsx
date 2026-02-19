@@ -8,14 +8,14 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative bg-white py-32 md:py-48 px-6 md:px-16 lg:px-24"
+      className="relative bg-[#f1f1f1] py-32 md:py-48 px-6 md:px-16 lg:px-24"
     >
       {/* Decorative top line */}
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent mb-20" />
 
       <div className="max-w-6xl mx-auto">
         <motion.p
-          className="text-xs tracking-[0.4em] uppercase text-gold mb-8"
+          className="text-sm tracking-[0.4em] uppercase text-gold mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -36,7 +36,7 @@ export default function AboutSection() {
           <div className="flex flex-col justify-end">
             <TextReveal
               text="PT. DENZEN ARKATAMA Group melayani jasa renovasi dan pembangunan rumah di Jawa Timur & Bali sebagai wilayah utama, serta seluruh Indonesia dengan penyesuaian biaya akomodasi. Harga mulai dari ±4 juta per meter, sudah termasuk tukang, bahan, desain, dan estimasi pendanaan."
-              className="text-base md:text-lg text-gray-500 leading-relaxed"
+              className="text-lg md:text-xl text-gray-500 leading-relaxed"
               as="p"
             />
 
@@ -47,19 +47,19 @@ export default function AboutSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-xs tracking-wider text-gold uppercase">
+              <span className="inline-block px-4 py-2.5 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
                 Bangun Baru
               </span>
-              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-xs tracking-wider text-gold uppercase">
+              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
                 Renovasi
               </span>
-              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-xs tracking-wider text-gold uppercase">
+              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
                 Pengecatan
               </span>
-              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-xs tracking-wider text-gold uppercase">
+              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
                 Instalasi
               </span>
-              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-xs tracking-wider text-gold uppercase">
+              <span className="inline-block px-4 py-2 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
                 Plafon & Finishing
               </span>
             </motion.div>
@@ -98,8 +98,8 @@ export default function AboutSection() {
               <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors duration-300">
                 <Icon className="w-6 h-6 text-gold" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{service.desc}</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+              <p className="text-base text-gray-500 leading-relaxed">{service.desc}</p>
             </motion.div>
             );
           })}
@@ -115,23 +115,23 @@ export default function AboutSection() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-gold mb-4">Estimasi Harga</p>
+              <p className="text-sm tracking-[0.3em] uppercase text-gold mb-4">Estimasi Harga</p>
               <p className="text-3xl md:text-4xl font-bold text-gray-900">±4 Juta <span className="text-lg font-normal text-gray-400">/ meter</span></p>
-              <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+              <p className="text-base text-gray-500 mt-3 leading-relaxed">
                 Sudah termasuk tukang, bahan-bahan, desain, dan estimasi pendanaan.
                 Harga dapat menyesuaikan untuk wilayah di luar Jawa & Bali.
               </p>
             </div>
             <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-gold mb-4">Wilayah Layanan</p>
+              <p className="text-sm tracking-[0.3em] uppercase text-gold mb-4">Wilayah Layanan</p>
               <div className="space-y-3">
                 <div className="flex items-center justify-between py-2 border-b border-gray-200">
-                  <span className="text-sm font-medium text-gray-700">Jawa Timur & Bali</span>
-                  <span className="text-xs px-3 py-1 bg-gold/10 text-gold rounded-full">Utama</span>
+                  <span className="text-base font-medium text-gray-700">Jawa Timur & Bali</span>
+                  <span className="text-sm px-3 py-1 bg-gold/10 text-gold rounded-full">Utama</span>
                 </div>
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-sm text-gray-500">Diluar Wilayah Utama </span>
-                  <span className="text-xs text-gray-400">Harga menyesuaikan</span>
+                  <span className="text-base text-gray-500">Diluar Wilayah Utama </span>
+                  <span className="text-sm text-gray-400">Harga menyesuaikan</span>
                 </div>
               </div>
             </div>

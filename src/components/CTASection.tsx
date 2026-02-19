@@ -31,7 +31,7 @@ export default function CTASection() {
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.p
-          className="text-xs tracking-[0.4em] uppercase text-gold mb-6"
+          className="text-sm tracking-[0.4em] uppercase text-gold mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -52,7 +52,7 @@ export default function CTASection() {
         </motion.h2>
 
         <motion.p
-          className="text-white/40 text-base md:text-lg max-w-lg mx-auto mb-12"
+          className="text-white/40 text-lg md:text-xl max-w-lg mx-auto mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -69,7 +69,7 @@ export default function CTASection() {
           transition={{ delay: 0.5, duration: 0.6 }}
         >
           <MagneticButton
-            href="https://wa.me/6288989505936"
+            href="https://wa.me/6288989505936?text=Permisi%20Kak%2C%20saya%20ingin%20berkonsultasi%20tentang%20jasa%20renovasi%2Fpembangunan%20rumah.%20Boleh%20minta%20info%20lebih%20lanjut%3F%20%F0%9F%99%8F"
             className="text-dark font-semibold"
           >
             Hubungi via WhatsApp <span className="ml-2">→</span>
@@ -85,18 +85,18 @@ export default function CTASection() {
           transition={{ delay: 0.7 }}
         >
           <div className="text-center">
-            <p className="text-white/20 text-xs tracking-wider">Pembayaran</p>
-            <p className="text-white/50 text-sm font-medium mt-1">100% Setelah Jadi</p>
+            <p className="text-white/20 text-sm tracking-wider">Pembayaran</p>
+            <p className="text-white/50 text-base font-medium mt-1">100% Setelah Jadi</p>
           </div>
           <div className="w-[1px] h-8 bg-white/10" />
           <div className="text-center">
-            <p className="text-white/20 text-xs tracking-wider">Konsultasi</p>
-            <p className="text-white/50 text-sm font-medium mt-1">Gratis</p>
+            <p className="text-white/20 text-sm tracking-wider">Konsultasi</p>
+            <p className="text-white/50 text-base font-medium mt-1">Gratis</p>
           </div>
           <div className="w-[1px] h-8 bg-white/10" />
           <div className="text-center">
-            <p className="text-white/20 text-xs tracking-wider">Include</p>
-            <p className="text-white/50 text-sm font-medium mt-1">Tukang + Bahan + Desain</p>
+            <p className="text-white/20 text-sm tracking-wider">Include</p>
+            <p className="text-white/50 text-base font-medium mt-1">Tukang + Bahan + Desain</p>
           </div>
         </motion.div>
       </div>

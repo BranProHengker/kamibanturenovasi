@@ -37,7 +37,7 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="relative bg-white py-28 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden">
+    <section className="relative bg-[#f1f1f1] py-28 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -56,7 +56,7 @@ export default function StatsSection() {
         {/* Section header */}
         <div className="text-center mb-16 md:mb-20">
           <motion.p
-            className="text-xs tracking-[0.4em] uppercase text-gold mb-4"
+            className="text-sm tracking-[0.4em] uppercase text-gold mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -107,10 +107,10 @@ export default function StatsSection() {
                 </div>
 
                 {/* Label */}
-                <p className="text-sm font-medium text-gray-600 mb-3">{item.label}</p>
+                <p className="text-base font-medium text-gray-600 mb-3">{item.label}</p>
 
                 {/* Description */}
-                <p className="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+                <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
               </motion.div>
             );
           })}
