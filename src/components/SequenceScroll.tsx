@@ -102,8 +102,8 @@ export default function SequenceScroll({
     imagesRef.current = images; // Assign reference immediately
     let cancelled = false;
 
-    // Fast startup: Hide preloader after just a few frames are ready
-    const minFramesToStart = Math.min(getIsMobile() ? 4 : 8, totalToLoad);
+    // Fast startup: Hide preloader after EXACTLY 1 frame (the first one) to unlock LCP
+    const minFramesToStart = 1;
     let hasCompletedLoadEvent = false;
 
     const loadImage = (mapIndex: number): Promise<void> => {
@@ -152,11 +152,20 @@ export default function SequenceScroll({
         batchStart = end;
 
         if (batchStart < totalToLoad && !cancelled) {
-          requestAnimationFrame(() => loadBatch());
+          // Add a tiny delay between batches to avoid locking the main thread completely
+          setTimeout(() => {
+            requestAnimationFrame(() => loadBatch());
+          }, 50);
         }
       };
 
-      loadBatch();
+      // CRITICAL FOR MOBILE PERFORMANCE/LIGHTHOUSE:
+      // Delay the massive 37MB background download by 2.5 seconds
+      // so the browser can finish Initial Paint (FCP) and Largest Contentful Paint (LCP)
+      // without network throttling fighting for bandwidth.
+      setTimeout(() => {
+        if (!cancelled) loadBatch();
+      }, 2500);
     });
 
     return () => {
