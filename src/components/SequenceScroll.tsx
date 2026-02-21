@@ -99,7 +99,12 @@ export default function SequenceScroll({
     let loadedCount = 0;
     const totalToLoad = map.length;
     const images: HTMLImageElement[] = new Array(totalToLoad);
+    imagesRef.current = images; // Assign reference immediately
     let cancelled = false;
+
+    // Fast startup: Hide preloader after just a few frames are ready
+    const minFramesToStart = Math.min(getIsMobile() ? 4 : 8, totalToLoad);
+    let hasCompletedLoadEvent = false;
 
     const loadImage = (mapIndex: number): Promise<void> => {
       return new Promise((resolve) => {
@@ -110,10 +115,12 @@ export default function SequenceScroll({
           if (cancelled) return;
           images[mapIndex] = img;
           loadedCount++;
+          
           const percent = (loadedCount / totalToLoad) * 100;
           onLoadingProgress?.(percent);
-          if (loadedCount === totalToLoad) {
-            imagesRef.current = images;
+          
+          if (loadedCount >= minFramesToStart && !hasCompletedLoadEvent) {
+            hasCompletedLoadEvent = true;
             setIsLoaded(true);
             onLoadingComplete?.();
           }

@@ -206,15 +206,15 @@ export default function Preloader({ progress, isComplete }: PreloaderProps) {
             <div className="preloader-progress-track">
               <div
                 className="preloader-progress-bar"
-                style={{ width: `${progress}%` }}
+                style={{ width: `${isComplete ? 100 : progress}%` }}
               />
             </div>
 
             <motion.span
               className="text-white/60 text-xs tracking-widest mt-4 tabular-nums"
-              key={Math.round(progress)}
+              key={isComplete ? 100 : Math.round(progress)}
             >
-              {Math.round(progress)}%
+              {isComplete ? 100 : Math.round(progress)}%
             </motion.span>
           </motion.div>
 
