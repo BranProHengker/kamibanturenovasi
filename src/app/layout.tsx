@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/images/kamibanturenovasi-logo.PNG",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "KamiBantuRenovasi — Jasa Renovasi & Bangun Rumah",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/images/kamibanturenovasi-logo.PNG"],
+    images: ["/images/og-image.jpg"],
   },
   robots: {
     index: true,

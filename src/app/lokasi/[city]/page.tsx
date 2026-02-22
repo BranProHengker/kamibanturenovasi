@@ -36,9 +36,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { city: string };
+  params: Promise<{ city: string }>;
 }): Promise<Metadata> {
-  const cityData = CITIES.find((c) => c.slug === params.city);
+  const resolvedParams = await params;
+  const cityData = CITIES.find((c) => c.slug === resolvedParams.city);
   if (!cityData) return {};
 
   const cityName = cityData.name;
@@ -56,16 +57,17 @@ export async function generateMetadata({
     openGraph: {
       title: `Jasa Renovasi & Bangun Rumah di ${cityName}`,
       description: `Wujudkan rumah impian Anda di ${cityName} bersama ahlinya.`,
-      url: `https://kamibanturenovasi.com/lokasi/${params.city}`,
+      url: `https://kamibanturenovasi.com/lokasi/${resolvedParams.city}`,
     },
     alternates: {
-      canonical: `https://kamibanturenovasi.com/lokasi/${params.city}`,
+      canonical: `https://kamibanturenovasi.com/lokasi/${resolvedParams.city}`,
     },
   };
 }
 
-export default function LocationPage({ params }: { params: { city: string } }) {
-  const cityData = CITIES.find((c) => c.slug === params.city);
+export default async function LocationPage({ params }: { params: Promise<{ city: string }> }) {
+  const resolvedParams = await params;
+  const cityData = CITIES.find((c) => c.slug === resolvedParams.city);
 
   if (!cityData) {
     notFound();
@@ -84,11 +86,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
 
       <main>
         {/* We pass the cityName keyword to SequenceScroll to replace 'Wujudkan Rumah Impian Anda' with localized text */}
-        <SequenceScroll
-          onLoadingProgress={() => {}}
-          onLoadingComplete={() => {}}
-          locationName={cityName}
-        />
+        <SequenceScroll locationName={cityName} />
 
         <div className="-mt-[100vh] relative z-10">
           <AboutSection />
