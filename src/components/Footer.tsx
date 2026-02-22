@@ -13,7 +13,7 @@ export default function Footer() {
       <footer className="bg-[#f1f1f1] py-16 md:py-24 px-6 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {/* Top */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-10 pb-12 border-b border-dark/5">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 pb-12 border-b border-dark/5">
             {/* Brand */}
             <div className="md:col-span-1">
               <div className="flex items-center gap-3 mb-2">
@@ -56,6 +56,23 @@ export default function Footer() {
                     <li key={item} className="text-dark/50 text-base">{item}</li>
                   )
                 )}
+              </ul>
+            </div>
+
+            {/* Area Layanan (Programmatic SEO Links) */}
+            <div>
+              <p className="text-dark/40 text-sm tracking-[0.2em] uppercase mb-6">Area Layanan</p>
+              <ul className="space-y-3">
+                {["Malang", "Surabaya", "Batu", "Sidoarjo", "Bali"].map((city) => (
+                  <li key={city}>
+                    <a
+                      href={`/lokasi/${city.toLowerCase()}`}
+                      className="text-dark/60 text-base hover:text-gold transition-colors duration-200"
+                    >
+                      Jasa Renovasi {city}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 

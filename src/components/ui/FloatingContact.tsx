@@ -76,7 +76,8 @@ export default function FloatingContact() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 group"
+                      className="flex items-center gap-3 group outline-none"
+                      aria-label={`Buka ${link.label}`}
                       initial={{ opacity: 0, x: 20, scale: 0.8 }}
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       exit={{ opacity: 0, x: 20, scale: 0.8 }}

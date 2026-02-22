@@ -88,7 +88,7 @@ export default function PortfolioSection() {
             {PORTFOLIO_ITEMS.map((item, i) => (
               <motion.div
                 key={i}
-                className="group relative shrink-0 w-[75vw] sm:w-[60vw] md:w-[45vw] lg:w-[35vw] h-[50vh] md:h-[55vh] rounded-2xl overflow-hidden"
+                className="group relative shrink-0 w-[75vw] sm:w-[60vw] md:w-[45vw] lg:w-[35vw] h-[50vh] md:h-[55vh] rounded-2xl overflow-hidden cursor-pointer"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -97,7 +97,7 @@ export default function PortfolioSection() {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">

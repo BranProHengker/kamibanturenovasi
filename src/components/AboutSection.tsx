@@ -89,13 +89,13 @@ export default function AboutSection() {
             return (
             <motion.div
               key={service.title}
-              className="p-8 rounded-2xl border border-gray-100 hover:border-gold/20 transition-colors duration-300 group"
+              className="p-8 rounded-2xl border border-gray-100 cursor-pointer hover:border-gold/30 hover:shadow-lg hover:shadow-gold/5 transition-all duration-200 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors duration-300">
+              <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 group-hover:scale-105 transition-all duration-200">
                 <Icon className="w-6 h-6 text-gold" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>

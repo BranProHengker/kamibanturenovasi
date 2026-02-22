@@ -81,17 +81,17 @@ export default function StatsSection() {
             return (
               <motion.div
                 key={i}
-                className="group relative p-7 md:p-8 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-gold/20 hover:bg-white hover:shadow-lg hover:shadow-gold/5 transition-all duration-500"
+                className="group relative p-7 md:p-8 rounded-2xl border border-gray-100 bg-gray-50/50 cursor-pointer hover:border-gold/30 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 transition-all duration-200"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 {/* Top gold accent line */}
-                <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-transparent via-gold/0 group-hover:via-gold/30 to-transparent transition-all duration-500" />
+                <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-transparent via-gold/0 group-hover:via-gold/40 to-transparent transition-all duration-300" />
 
                 {/* Icon */}
-                <div className="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors duration-300">
+                <div className="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-200">
                   <Icon className="w-5 h-5 text-gold" />
                 </div>
 

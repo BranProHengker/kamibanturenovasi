@@ -43,12 +43,14 @@ interface SequenceScrollProps {
   onProgress?: (progress: number) => void;
   onLoadingProgress?: (percent: number) => void;
   onLoadingComplete?: () => void;
+  locationName?: string;
 }
 
 export default function SequenceScroll({
   onProgress,
   onLoadingProgress,
   onLoadingComplete,
+  locationName,
 }: SequenceScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -299,7 +301,7 @@ export default function SequenceScroll({
         />
 
         {/* Text Overlays */}
-        <HeroTextOverlays scrollProgress={scrollYProgress} />
+        <HeroTextOverlays scrollProgress={scrollYProgress} locationName={locationName} />
       </div>
     </section>
   );
@@ -309,8 +311,10 @@ export default function SequenceScroll({
 
 function HeroTextOverlays({
   scrollProgress,
+  locationName,
 }: {
   scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+  locationName?: string;
 }) {
   // Title at 0%
   const titleOpacity = useTransform(scrollProgress, [0, 0.05, 0.12, 0.18], [1, 1, 0, 0]);
@@ -359,7 +363,7 @@ function HeroTextOverlays({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.3, duration: 0.8 }}
         >
-          Wujudkan Rumah Impian Anda
+          Wujudkan Rumah Impian Anda {locationName ? `di ${locationName}` : ""}
         </motion.p>
         <motion.div
           className="mt-6 md:mt-8 flex items-center gap-3 text-gray-700"
