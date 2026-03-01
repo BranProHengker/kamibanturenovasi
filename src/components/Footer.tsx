@@ -13,9 +13,9 @@ export default function Footer() {
       <footer className="bg-[#f1f1f1] py-16 md:py-24 px-6 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {/* Top */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 pb-12 border-b border-dark/5">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-12 md:gap-8 pb-12 border-b border-dark/5">
             {/* Brand */}
-            <div className="md:col-span-1">
+            <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-2">
                 <img src="/images/kamibanturenovasi-logo.PNG" alt="KamiBantuRenovasi Logo" className="w-10 h-10 object-contain" />
                 <h3 className="text-2xl font-bold tracking-tighter text-dark">
