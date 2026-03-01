@@ -23,9 +23,10 @@ export default function TestimonialForm({ onClose }: { onClose: () => void }) {
   const [jenisProyek, setJenisProyek] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -34,6 +35,11 @@ export default function TestimonialForm({ onClose }: { onClose: () => void }) {
       return;
     }
 
+    // Tampilkan prompt konfirmasi sebelum upload ke DB
+    setShowConfirmation(true);
+  };
+
+  const confirmSubmit = async () => {
     setIsSubmitting(true);
 
     try {
@@ -44,17 +50,19 @@ export default function TestimonialForm({ onClose }: { onClose: () => void }) {
           pesan: pesan.trim(),
           rating,
           jenis_proyek: jenisProyek || null,
-          approved: true,
+          approved: false, // Set false by default, admin must approve
         });
 
       if (supabaseError) throw supabaseError;
 
+      setShowConfirmation(false);
       setIsSuccess(true);
       setTimeout(() => {
         onClose();
       }, 3000);
     } catch {
       setError("Gagal mengirim ulasan. Silakan coba lagi.");
+      setShowConfirmation(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -111,9 +119,61 @@ export default function TestimonialForm({ onClose }: { onClose: () => void }) {
                 <LuCheck className="w-8 h-8 text-green-600" />
               </div>
               <h4 className="text-lg font-bold text-gray-900 mb-2">Terima Kasih! 🙏</h4>
-              <p className="text-sm text-gray-500">
-                Ulasan Anda telah dikirim dan akan segera ditampilkan.
+              <p className="text-sm text-gray-500 mb-4 px-4 leading-relaxed">
+                Kami sangat berterima kasih atas kepercayaan Anda menggunakan jasa KamiBantuRenovasi.
               </p>
+              <p className="text-xs text-gray-400 bg-gray-50 py-2 px-3 rounded-lg inline-block">
+                Ulasan Anda sedang ditinjau dan akan segera ditampilkan.
+              </p>
+            </motion.div>
+          ) : showConfirmation ? (
+            <motion.div
+              key="confirmation"
+              className="px-6 py-10"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 text-center mb-6">
+                <h4 className="text-lg font-bold text-amber-900 mb-3">Konfirmasi Ulasan</h4>
+                <p className="text-amber-800 text-sm leading-relaxed mb-4">
+                  Pastikan data ulasan Anda diisi dengan baik dan sopan. Mohon dikoreksi kembali bila ada salah ketik (typo).
+                </p>
+                <div className="bg-white/60 rounded-xl p-4 text-left border border-amber-200/50">
+                  <p className="text-xs text-amber-900/50 uppercase tracking-widest font-semibold mb-1">Pratinjau Ulasan</p>
+                  <p className="text-gray-700 text-sm italic">"{pesan}"</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-8">
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmation(false)}
+                  disabled={isSubmitting}
+                  className="flex-1 py-3 bg-gray-100 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50"
+                >
+                  Edit Lagi
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmSubmit}
+                  disabled={isSubmitting}
+                  className="flex-1 py-3 bg-dark text-white text-sm font-semibold rounded-xl hover:bg-black transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-dark/20"
+                >
+                  {isSubmitting ? (
+                    <motion.div
+                      className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                  ) : (
+                    <>
+                      <LuSend className="w-4 h-4" />
+                      Yakin, Kirim
+                    </>
+                  )}
+                </button>
+              </div>
             </motion.div>
           ) : (
             <motion.form

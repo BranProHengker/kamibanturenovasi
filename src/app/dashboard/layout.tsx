@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const metadata = {
   title: 'Admin Dashboard | KamiBantuRenovasi',
   description: 'Pengelolaan data website KamiBantuRenovasi',
@@ -14,10 +16,18 @@ export default function DashboardLayout({
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-dark flex items-center justify-center">
-              <span className="text-gold font-bold text-lg leading-none">K</span>
-            </div>
-            <span className="font-semibold text-lg tracking-tight">Admin Dashboard</span>
+          {/* Updated with Next.js Image component */}
+          <Image
+            src="/images/kamibanturenovasi-logo.PNG"
+            alt="Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8 object-contain"
+            priority
+          />
+            <h1 className="font-bold text-lg tracking-tight text-gray-900">
+              <span className="gold-gradient-text">KAMIBANTU</span>RENOVASI
+            </h1>
           </div>
         </div>
       </header>

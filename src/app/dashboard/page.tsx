@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase-browser";
 import ToastContainer, { ToastProps, ToastType } from "@/components/ui/Toast";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { LuTrash2, LuLogOut, LuRefreshCw, LuUser, LuMapPin, LuCalendar, LuStar, LuCircleCheck, LuCircleX } from "react-icons/lu";
+import { LuTrash2, LuLogOut, LuRefreshCw, LuUser, LuMapPin, LuCalendar, LuStar, LuCircleCheck, LuCircleX, LuX } from "react-icons/lu";
 
 type Testimonial = {
   id: string;
@@ -24,6 +24,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [toasts, setToasts] = useState<ToastProps[]>([]);
+  const [selectedTesti, setSelectedTesti] = useState<Testimonial | null>(null);
   const router = useRouter();
   const supabase = createClient();
 
@@ -154,7 +155,11 @@ export default function DashboardPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {testimonials.map((testi) => (
-                  <tr key={testi.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <tr 
+                    key={testi.id} 
+                    onClick={() => setSelectedTesti(testi)}
+                    className="hover:bg-gray-50/50 transition-colors group cursor-pointer"
+                  >
                     <td className="px-6 py-4 align-top">
                       <div className="flex items-center gap-2 font-semibold text-gray-900 mb-1 capitalize">
                         <LuUser className="w-4 h-4 text-gold" />
@@ -176,9 +181,14 @@ export default function DashboardPage() {
                           <LuStar key={i} className={`w-4 h-4 ${i < testi.rating ? "fill-gold text-gold" : "text-gray-300"}`} />
                         ))}
                       </div>
-                      <p className="text-sm text-gray-600 line-clamp-3 group-hover:line-clamp-none transition-all">
+                      <p className="text-sm text-gray-600 line-clamp-2">
                         "{testi.pesan}"
                       </p>
+                      {testi.pesan.length > 80 && (
+                        <span className="text-xs text-gold mt-1 font-medium inline-block">
+                          Klik untuk baca selengkapnya
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 align-top text-sm text-gray-500 whitespace-nowrap">
                       <div className="flex flex-col gap-2">
@@ -195,10 +205,13 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 align-top">
+                    <td className="px-6 py-4 align-top" onClick={(e) => e.stopPropagation()}>
                       <div className="flex justify-end gap-2">
                         <button
-                          onClick={() => handleToggleApproval(testi.id, testi.approved)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleApproval(testi.id, testi.approved);
+                          }}
                           disabled={processingId === testi.id}
                           className={`p-2 rounded-lg transition-colors disabled:opacity-50 ${
                             testi.approved 
@@ -216,7 +229,10 @@ export default function DashboardPage() {
                           )}
                         </button>
                         <button
-                          onClick={() => handleDelete(testi.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(testi.id);
+                          }}
                           disabled={processingId === testi.id}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
                           title="Hapus Testimoni"
@@ -236,6 +252,109 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+
+      {/* Modal Detail Testimoni */}
+      {selectedTesti && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setSelectedTesti(null)}
+          />
+          <div className="relative bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50 shrink-0">
+              <h3 className="font-bold text-lg text-gray-900">Detail Ulasan</h3>
+              <button 
+                onClick={() => setSelectedTesti(null)}
+                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              >
+                <LuX className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto">
+              <div className="flex items-center gap-1 mb-4 text-gold">
+                {[...Array(5)].map((_, i) => (
+                  <LuStar key={i} className={`w-5 h-5 ${i < selectedTesti.rating ? "fill-gold text-gold" : "text-gray-200"}`} />
+                ))}
+              </div>
+              
+              <blockquote className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 italic border-l-4 border-gold pl-4">
+                "{selectedTesti.pesan}"
+              </blockquote>
+              
+              <div className="bg-gray-50 rounded-2xl p-5 space-y-4">
+                <div className="grid grid-cols-3 gap-2 text-sm">
+                  <span className="text-gray-500">Nama Klien</span>
+                  <span className="col-span-2 font-medium text-gray-900 capitalize">{selectedTesti.nama}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-sm">
+                  <span className="text-gray-500">Jenis Proyek</span>
+                  <span className="col-span-2 font-medium text-gray-900">{selectedTesti.jenis_proyek}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-sm">
+                  <span className="text-gray-500">Lokasi</span>
+                  <span className="col-span-2 font-medium text-gray-900 capitalize">{selectedTesti.lokasi}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-sm">
+                  <span className="text-gray-500">Tanggal</span>
+                  <span className="col-span-2 font-medium text-gray-900">
+                    {format(new Date(selectedTesti.created_at), "dd MMMM yyyy", { locale: id })}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-sm items-center pt-3 border-t border-gray-200">
+                  <span className="text-gray-500">Status Publikasi</span>
+                  <span className={`col-span-2 inline-flex items-center gap-1.5 text-xs font-medium px-2 py-1.5 rounded-md w-fit ${selectedTesti.approved ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>
+                    {selectedTesti.approved ? (
+                      <><LuCircleCheck className="w-4 h-4" /> Ditampilkan di Website</>
+                    ) : (
+                      <><LuCircleX className="w-4 h-4" /> Disembunyikan</>
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50/50 flex flex-col-reverse sm:flex-row items-center justify-end gap-3 shrink-0">
+              <button
+                onClick={() => {
+                  handleDelete(selectedTesti.id);
+                  setSelectedTesti(null);
+                }}
+                disabled={processingId === selectedTesti.id}
+                className="w-full sm:w-auto px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {processingId === selectedTesti.id && !selectedTesti.approved ? (
+                  <LuRefreshCw className="w-4 h-4 animate-spin" />
+                ) : (
+                  <LuTrash2 className="w-4 h-4" />
+                )}
+                Hapus Permanen
+              </button>
+              
+              <button
+                onClick={() => {
+                  handleToggleApproval(selectedTesti.id, selectedTesti.approved);
+                  setSelectedTesti({ ...selectedTesti, approved: !selectedTesti.approved });
+                }}
+                disabled={processingId === selectedTesti.id}
+                className={`w-full sm:w-auto px-5 py-2.5 text-sm font-medium rounded-xl transition-colors disabled:opacity-50 flex items-center justify-center gap-2 ${
+                  selectedTesti.approved 
+                    ? "bg-amber-50 text-amber-700 border border-amber-200/50 hover:bg-amber-100" 
+                    : "bg-green-600 text-white shadow-md shadow-green-600/20 hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20"
+                }`}
+              >
+                {processingId === selectedTesti.id ? (
+                  <LuRefreshCw className="w-4 h-4 animate-spin" />
+                ) : selectedTesti.approved ? (
+                  <><LuCircleX className="w-4 h-4" /> Sembunyikan</>
+                ) : (
+                  <><LuCircleCheck className="w-4 h-4" /> Publikasikan</>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

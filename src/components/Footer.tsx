@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { LuPenLine } from "react-icons/lu";
 import TestimonialForm from "@/components/ui/TestimonialForm";
+import Image from "next/image";
 
 export default function Footer() {
   const [showForm, setShowForm] = useState(false);
@@ -17,7 +18,13 @@ export default function Footer() {
             {/* Brand */}
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-2">
-                <img src="/images/kamibanturenovasi-logo.PNG" alt="KamiBantuRenovasi Logo" className="w-10 h-10 object-contain" />
+                <Image
+                  src="/images/kamibanturenovasi-logo.PNG"
+                  alt="KamiBantuRenovasi Logo"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 object-contain"
+                />
                 <h3 className="text-2xl font-bold tracking-tighter text-dark">
                   <span className="gold-gradient-text">KAMIBANTU</span>RENOVASI
                 </h3>

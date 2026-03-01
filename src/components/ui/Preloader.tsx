@@ -13,7 +13,9 @@ export default function Preloader({ progress, isComplete }: PreloaderProps) {
 
   useEffect(() => {
     if (isComplete) {
-      const timer = setTimeout(() => setShow(false), 800);
+      // Ditambah delay ekstra (awalnya 800ms jadi 2000ms) agar canvas scroll-sequence
+      // punya waktu bernapas untuk mount & siap di-scroll user secara barbar
+      const timer = setTimeout(() => setShow(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [isComplete]);
@@ -25,7 +27,7 @@ export default function Preloader({ progress, isComplete }: PreloaderProps) {
           className="preloader"
           exit={{
             clipPath: "circle(0% at 50% 50%)",
-            transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 1.5, ease: [0.76, 0, 0.24, 1] },
           }}
         >
           {/* Hammer & Nail Animation */}

@@ -104,8 +104,9 @@ export default function SequenceScroll({
     imagesRef.current = images; // Assign reference immediately
     let cancelled = false;
 
-    // Fast startup: Hide preloader after EXACTLY 1 frame (the first one) to unlock LCP
-    const minFramesToStart = 1;
+    // Fast startup vs Smooth scrolling: 
+    // Wait for a chunk of frames to load before hiding the preloader so the initial scroll is buttery smooth.
+    const minFramesToStart = Math.min(getIsMobile() ? 15 : 30, map.length);
     let hasCompletedLoadEvent = false;
 
     const loadImage = (mapIndex: number): Promise<void> => {
@@ -206,14 +207,23 @@ export default function SequenceScroll({
 
       // Cover fit — fill entire canvas, center the image
       const imgRatio = img.width / img.height;
-      const canvasRatio = cw / ch;
+      let canvasRatio = cw / ch;
 
       let drawW: number, drawH: number, drawX: number, drawY: number;
 
+      // Prevent extreme zoom on Ultrawide screens (> 21:9)
+      const MAX_ASPECT_RATIO = 2.33; 
+      let effectiveCw = cw;
+      
+      if (canvasRatio > MAX_ASPECT_RATIO) {
+        effectiveCw = ch * MAX_ASPECT_RATIO;
+        canvasRatio = MAX_ASPECT_RATIO;
+      }
+
       if (canvasRatio > imgRatio) {
-        drawW = cw;
-        drawH = cw / imgRatio;
-        drawX = 0;
+        drawW = effectiveCw;
+        drawH = effectiveCw / imgRatio;
+        drawX = (cw - drawW) / 2;
         drawY = (ch - drawH) / 2;
       } else {
         drawH = ch;
