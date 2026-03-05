@@ -28,6 +28,32 @@ export default function Navbar() {
 
   const toggle = useCallback(() => setIsOpen((v) => !v), []);
 
+  // Smooth Scroll handler for anchor links
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Only intercept local hash links
+    if (href.startsWith("#") && href.length > 1) {
+      e.preventDefault();
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        // Close mobile menu if open
+        if (isOpen) setIsOpen(false);
+
+        // Calculate position slightly offset from the top to account for sticky navbar
+        const offsetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    } else if (href === "#") {
+      // Scroll to top
+      e.preventDefault();
+      if (isOpen) setIsOpen(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   // Track scroll position for background change
   useEffect(() => {
     const handleScroll = () => {
@@ -72,6 +98,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleSmoothScroll(e, link.href)}
                 className="group relative text-[13px] font-medium tracking-wide text-white/70 hover:text-white transition-colors duration-300 uppercase"
               >
                 {link.label}
@@ -184,7 +211,7 @@ export default function Navbar() {
                     <a
                       key={link.label}
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => handleSmoothScroll(e, link.href)}
                       className="group block"
                     >
                       <div className="overflow-hidden">
