@@ -220,16 +220,25 @@ export default function SequenceScroll({
         canvasRatio = MAX_ASPECT_RATIO;
       }
 
+      // Apply dynamic zoom
+      const isMobile = cw < 768;
+      // Mobile: zoom out 15%, Desktop: zoom in 20% (hides Veo watermark firmly)
+      const zoomConfig = isMobile ? 0.85 : 1.20; 
+
       if (canvasRatio > imgRatio) {
-        drawW = effectiveCw;
-        drawH = effectiveCw / imgRatio;
+        drawW = effectiveCw * zoomConfig;
+        drawH = (effectiveCw / imgRatio) * zoomConfig;
         drawX = (cw - drawW) / 2;
+        // On desktop, shift slightly downwards so the bottom watermark falls off screen more effectively
         drawY = (ch - drawH) / 2;
+        if (!isMobile) drawY += ch * 0.04; 
       } else {
-        drawH = ch;
-        drawW = ch * imgRatio;
+        drawH = ch * zoomConfig;
+        drawW = (ch * imgRatio) * zoomConfig;
         drawX = (cw - drawW) / 2;
-        drawY = 0;
+        // Float to bottom on mobile so sky expands at top seamlessly without showing gray on the ground
+        drawY = isMobile ? ch - drawH : (ch - drawH) / 2;
+        if (!isMobile) drawY += ch * 0.04;
       }
 
       ctx.drawImage(img, drawX, drawY, drawW, drawH);

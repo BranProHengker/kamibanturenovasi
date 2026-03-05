@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
 
 const PORTFOLIO_ITEMS = [
   {
@@ -41,7 +42,7 @@ export default function PortfolioSection() {
       id="services"
       ref={sectionRef}
       className="relative bg-dark"
-      style={{ height: `${PORTFOLIO_ITEMS.length * 100}vh` }}
+      style={{ height: `${PORTFOLIO_ITEMS.length * 50}vh` }}
     >
       {/* Sticky container — stays in view while user scrolls */}
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
@@ -94,12 +95,14 @@ export default function PortfolioSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 75vw, (max-width: 1200px) 45vw, 35vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                   <p className="text-gold text-sm tracking-[0.2em] uppercase mb-2">
                     {item.subtitle}
