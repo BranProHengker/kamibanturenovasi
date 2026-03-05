@@ -141,7 +141,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold transition-all text-gray-900"
-                placeholder="admin@kamibanturenovasi.com"
+                placeholder="email"
                 required
                 disabled={loading}
               />
@@ -154,7 +154,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold transition-all text-gray-900"
-                placeholder="••••••••"
+                placeholder="passwords"
                 required
                 disabled={loading}
               />
