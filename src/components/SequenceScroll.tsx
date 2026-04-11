@@ -176,14 +176,23 @@ export default function SequenceScroll({
     };
   }, [onLoadingProgress, onLoadingComplete]);
 
-  // Draw frame to canvas
+  // Draw frame to canvas — supports fractional indices for smooth blending
   const drawFrame = useCallback(
-    (index: number) => {
+    (fractionalIndex: number) => {
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
-      if (!canvas || !ctx || !imagesRef.current[index]) return;
+      if (!canvas || !ctx) return;
 
-      const img = imagesRef.current[index];
+      const maxIdx = effectiveFrames.current - 1;
+      const clampedIndex = Math.max(0, Math.min(fractionalIndex, maxIdx));
+      const floorIdx = Math.floor(clampedIndex);
+      const ceilIdx = Math.min(floorIdx + 1, maxIdx);
+      const blendAlpha = clampedIndex - floorIdx; // 0.0 – 1.0 between frames
+
+      const imgA = imagesRef.current[floorIdx];
+      const imgB = imagesRef.current[ceilIdx];
+      if (!imgA) return; // At minimum we need the base frame
+
       const dpr = dprRef.current;
 
       // Set canvas size (with capped DPR)
@@ -200,64 +209,74 @@ export default function SequenceScroll({
       const ch = canvas.offsetHeight;
 
       // Fill background with matching color
-      const t = index / Math.max(effectiveFrames.current - 1, 1);
+      const t = clampedIndex / Math.max(maxIdx, 1);
       const gray = Math.round(216 + t * (255 - 216));
       ctx.fillStyle = `rgb(${gray}, ${gray}, ${gray})`;
       ctx.fillRect(0, 0, cw, ch);
 
-      // Cover fit — fill entire canvas, center the image
-      const imgRatio = img.width / img.height;
-      let canvasRatio = cw / ch;
+      // Calculate cover-fit dimensions (reusable for both frames)
+      const computeDrawRect = (img: HTMLImageElement) => {
+        const imgRatio = img.width / img.height;
+        let canvasRatio = cw / ch;
+        let effectiveCw = cw;
 
-      let drawW: number, drawH: number, drawX: number, drawY: number;
+        // Prevent extreme zoom on Ultrawide screens (> 21:9)
+        const MAX_ASPECT_RATIO = 2.33;
+        if (canvasRatio > MAX_ASPECT_RATIO) {
+          effectiveCw = ch * MAX_ASPECT_RATIO;
+          canvasRatio = MAX_ASPECT_RATIO;
+        }
 
-      // Prevent extreme zoom on Ultrawide screens (> 21:9)
-      const MAX_ASPECT_RATIO = 2.33; 
-      let effectiveCw = cw;
-      
-      if (canvasRatio > MAX_ASPECT_RATIO) {
-        effectiveCw = ch * MAX_ASPECT_RATIO;
-        canvasRatio = MAX_ASPECT_RATIO;
+        const isMobile = cw < 768;
+        const zoomConfig = isMobile ? 0.85 : 1.20;
+
+        let drawW: number, drawH: number, drawX: number, drawY: number;
+
+        if (canvasRatio > imgRatio) {
+          drawW = effectiveCw * zoomConfig;
+          drawH = (effectiveCw / imgRatio) * zoomConfig;
+          drawX = (cw - drawW) / 2;
+          drawY = (ch - drawH) / 2;
+          if (!isMobile) drawY += ch * 0.04;
+        } else {
+          drawH = ch * zoomConfig;
+          drawW = (ch * imgRatio) * zoomConfig;
+          drawX = (cw - drawW) / 2;
+          drawY = isMobile ? ch - drawH : (ch - drawH) / 2;
+          if (!isMobile) drawY += ch * 0.04;
+        }
+
+        return { drawX, drawY, drawW, drawH };
+      };
+
+      // Draw the base (floor) frame
+      const rectA = computeDrawRect(imgA);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(imgA, rectA.drawX, rectA.drawY, rectA.drawW, rectA.drawH);
+
+      // Blend the next (ceil) frame on top if there's a fractional component and the next frame exists
+      if (blendAlpha > 0.01 && imgB && floorIdx !== ceilIdx) {
+        const rectB = computeDrawRect(imgB);
+        ctx.globalAlpha = blendAlpha;
+        ctx.drawImage(imgB, rectB.drawX, rectB.drawY, rectB.drawW, rectB.drawH);
+        ctx.globalAlpha = 1; // Reset
       }
-
-      // Apply dynamic zoom
-      const isMobile = cw < 768;
-      // Mobile: zoom out 15%, Desktop: zoom in 20% (hides Veo watermark firmly)
-      const zoomConfig = isMobile ? 0.85 : 1.20; 
-
-      if (canvasRatio > imgRatio) {
-        drawW = effectiveCw * zoomConfig;
-        drawH = (effectiveCw / imgRatio) * zoomConfig;
-        drawX = (cw - drawW) / 2;
-        // On desktop, shift slightly downwards so the bottom watermark falls off screen more effectively
-        drawY = (ch - drawH) / 2;
-        if (!isMobile) drawY += ch * 0.04; 
-      } else {
-        drawH = ch * zoomConfig;
-        drawW = (ch * imgRatio) * zoomConfig;
-        drawX = (cw - drawW) / 2;
-        // Float to bottom on mobile so sky expands at top seamlessly without showing gray on the ground
-        drawY = isMobile ? ch - drawH : (ch - drawH) / 2;
-        if (!isMobile) drawY += ch * 0.04;
-      }
-
-      ctx.drawImage(img, drawX, drawY, drawW, drawH);
     },
     []
   );
 
-  // Subscribe to scroll — use requestAnimationFrame for smoothness
+  // Subscribe to scroll — pass raw fractional index for smooth blending
   const rafRef = useRef<number>(0);
+  const lastDrawnRef = useRef<number>(-1);
 
   useMotionValueEvent(frameIndex, "change", (latest) => {
-    const index = Math.min(
-      Math.round(latest),
-      effectiveFrames.current - 1
-    );
-    if (index !== currentFrameRef.current && isLoaded) {
-      currentFrameRef.current = index;
+    const clamped = Math.max(0, Math.min(latest, effectiveFrames.current - 1));
+    // Only redraw if the position changed meaningfully (avoid redundant paints)
+    if (Math.abs(clamped - lastDrawnRef.current) > 0.01 && isLoaded) {
+      lastDrawnRef.current = clamped;
+      currentFrameRef.current = Math.round(clamped);
       cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => drawFrame(index));
+      rafRef.current = requestAnimationFrame(() => drawFrame(clamped));
     }
   });
 

@@ -11,7 +11,6 @@ import AboutSection from "@/components/AboutSection";
 import FloatingContact from "@/components/ui/FloatingContact";
 import JsonLd from "@/components/JsonLd";
 
-// Dynamically import components below the fold to reduce initial bundle size
 const PortfolioSection = dynamic(() => import("@/components/PortfolioSection"));
 const StatsSection = dynamic(() => import("@/components/StatsSection"));
 const TestimonialSection = dynamic(() => import("@/components/TestimonialSection"));
