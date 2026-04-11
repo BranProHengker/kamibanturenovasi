@@ -105,8 +105,8 @@ export default function SequenceScroll({
     let cancelled = false;
 
     // Fast startup vs Smooth scrolling: 
-    // Wait for a chunk of frames to load before hiding the preloader so the initial scroll is buttery smooth.
-    const minFramesToStart = Math.min(getIsMobile() ? 15 : 30, map.length);
+    // Wait for 85% of the sequence images to load before hiding the preloader.
+    const minFramesToStart = Math.max(1, Math.ceil(map.length * 0.85));
     let hasCompletedLoadEvent = false;
 
     const loadImage = (mapIndex: number): Promise<void> => {
