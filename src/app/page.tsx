@@ -1,10 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import Preloader from "@/components/ui/Preloader";
 import Navbar from "@/components/Navbar";
 import SequenceScroll from "@/components/SequenceScroll";
 import AboutSection from "@/components/AboutSection";
@@ -18,29 +15,14 @@ const CTASection = dynamic(() => import("@/components/CTASection"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const handleLoadingProgress = useCallback((percent: number) => {
-    setLoadingProgress(percent);
-  }, []);
-
-  const handleLoadingComplete = useCallback(() => {
-    setIsLoaded(true);
-  }, []);
-
   return (
     <SmoothScroll>
       <JsonLd />
-      <Preloader progress={loadingProgress} isComplete={isLoaded} />
       <Navbar />
 
       <main>
         {/* ====== HERO — Sequence Scroll ====== */}
-        <SequenceScroll
-          onLoadingProgress={handleLoadingProgress}
-          onLoadingComplete={handleLoadingComplete}
-        />
+        <SequenceScroll />
 
         {/* ====== REMAINING SECTIONS ====== */}
         <div className="-mt-[100vh] relative z-10">

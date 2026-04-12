@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import Preloader from "@/components/ui/Preloader";
 import Navbar from "@/components/Navbar";
 import SequenceScroll from "@/components/SequenceScroll";
 import AboutSection from "@/components/AboutSection";
@@ -86,7 +85,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
 
       <main>
         {/* We pass the cityName keyword to SequenceScroll to replace 'Wujudkan Rumah Impian Anda' with localized text */}
-        <SequenceScroll locationName={cityName} />
+        <SequenceScroll locationName={cityName} hidePreloader={true} />
 
         <div className="-mt-[100vh] relative z-10">
           <AboutSection />

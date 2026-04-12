@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useScroll, useTransform, useMotionValueEvent, motion } from "motion/react";
+import { useScroll, useTransform, useMotionValueEvent, motion, useMotionValue, useSpring } from "motion/react";
+import Preloader from "@/components/ui/Preloader";
 
 const TOTAL_FRAMES = 192;
 
@@ -41,16 +42,14 @@ function getCappedDPR(): number {
 
 interface SequenceScrollProps {
   onProgress?: (progress: number) => void;
-  onLoadingProgress?: (percent: number) => void;
-  onLoadingComplete?: () => void;
   locationName?: string;
+  hidePreloader?: boolean;
 }
 
 export default function SequenceScroll({
   onProgress,
-  onLoadingProgress,
-  onLoadingComplete,
   locationName,
+  hidePreloader = false,
 }: SequenceScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -58,6 +57,7 @@ export default function SequenceScroll({
   const frameMapRef = useRef<number[]>([]); // maps continuous index → actual frame index
   const currentFrameRef = useRef(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const frameStepRef = useRef(1);
   const dprRef = useRef(1);
 
@@ -114,21 +114,32 @@ export default function SequenceScroll({
         const actualFrame = map[mapIndex];
         const img = new Image();
         img.src = getImagePath(actualFrame);
-        img.onload = () => {
+        const handleLoad = async () => {
           if (cancelled) return;
+          try {
+            // Decode the image off the main thread to prevent GPU jitter during the first scroll
+            await img.decode();
+          } catch (e) {
+            // Ignore decode errors, usually handled natively
+          }
+          if (cancelled) return;
+
           images[mapIndex] = img;
           loadedCount++;
           
           const percent = (loadedCount / totalToLoad) * 100;
-          onLoadingProgress?.(percent);
+          if (!hidePreloader) {
+            setLoadingProgress(percent);
+          }
           
           if (loadedCount >= minFramesToStart && !hasCompletedLoadEvent) {
             hasCompletedLoadEvent = true;
             setIsLoaded(true);
-            onLoadingComplete?.();
           }
           resolve();
         };
+
+        img.onload = handleLoad;
         img.onerror = () => {
           loadedCount++;
           resolve();
@@ -174,7 +185,7 @@ export default function SequenceScroll({
     return () => {
       cancelled = true;
     };
-  }, [onLoadingProgress, onLoadingComplete]);
+  }, [hidePreloader]);
 
   // Draw frame to canvas — supports fractional indices for smooth blending
   const drawFrame = useCallback(
@@ -323,7 +334,9 @@ export default function SequenceScroll({
   });
 
   return (
-    <section
+    <>
+      {!hidePreloader && <Preloader progress={loadingProgress} isComplete={isLoaded} />}
+      <section
       ref={containerRef}
       className="relative h-[300vh] md:h-[400vh]"
       style={{ background: "#d8d8d8" }}
@@ -342,6 +355,7 @@ export default function SequenceScroll({
         <HeroTextOverlays scrollProgress={scrollYProgress} locationName={locationName} />
       </div>
     </section>
+    </>
   );
 }
 
@@ -503,20 +517,27 @@ function HeroTextOverlays({
 
 function MagneticCTA() {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setPos({ x: x * 0.3, y: y * 0.3 });
-  }, []);
+    const nx = e.clientX - rect.left - rect.width / 2;
+    const ny = e.clientY - rect.top - rect.height / 2;
+    x.set(nx * 0.3);
+    y.set(ny * 0.3);
+  }, [x, y]);
 
   const handleMouseLeave = useCallback(() => {
-    setPos({ x: 0, y: 0 });
-  }, []);
+    x.set(0);
+    y.set(0);
+  }, [x, y]);
 
   return (
     <motion.div
@@ -524,8 +545,7 @@ function MagneticCTA() {
       className="magnetic-btn"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: pos.x, y: pos.y }}
-      transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.5 }}
+      style={{ x: springX, y: springY }}
     >
       <a
         href="#contact"
