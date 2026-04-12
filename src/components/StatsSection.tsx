@@ -59,7 +59,7 @@ export default function StatsSection() {
             className="text-sm tracking-[0.4em] uppercase text-gold mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
           >
             Mengapa Memilih Kami
           </motion.p>
@@ -67,7 +67,7 @@ export default function StatsSection() {
             className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-gray-900"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.1 }}
           >
             Keunggulan <span className="gold-gradient-text">Kami</span>
@@ -81,10 +81,11 @@ export default function StatsSection() {
             return (
               <motion.div
                 key={i}
-                className="group relative p-7 md:p-8 rounded-2xl border border-gray-100 bg-gray-50/50 cursor-pointer hover:border-gold/30 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 transition-all duration-200"
+                className="group relative p-7 md:p-8 rounded-2xl border border-gray-100 bg-gray-50/50 cursor-pointer hover:border-gold/30 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-colors duration-200"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                whileHover={{ y: -4 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 {/* Top gold accent line */}

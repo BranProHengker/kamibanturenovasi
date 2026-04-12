@@ -18,7 +18,7 @@ export default function AboutSection() {
           className="text-sm tracking-[0.4em] uppercase text-gold mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           Tentang Kami
@@ -44,7 +44,7 @@ export default function AboutSection() {
               className="mt-12 flex flex-wrap gap-3"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <span className="inline-block px-4 py-2.5 border border-gold/30 rounded-full text-sm tracking-wider text-gold uppercase">
@@ -89,10 +89,11 @@ export default function AboutSection() {
             return (
             <motion.div
               key={service.title}
-              className="p-8 rounded-2xl border border-gray-100 cursor-pointer hover:border-gold/30 hover:shadow-lg hover:shadow-gold/5 transition-all duration-200 group"
+              className="p-8 rounded-2xl border border-gray-100 cursor-pointer hover:border-gold/30 hover:shadow-lg hover:shadow-gold/5 transition-colors transition-shadow duration-200 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileHover={{ y: -4 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
               <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 group-hover:scale-105 transition-all duration-200">
@@ -110,7 +111,7 @@ export default function AboutSection() {
           className="mt-16 p-8 md:p-12 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
