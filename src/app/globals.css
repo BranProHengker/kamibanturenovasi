@@ -9,7 +9,6 @@
   --color-dark: #0a0a0a;
   --color-dark-card: #141414;
   --color-gray-text: #6b6b6b;
-  --font-outfit: "Outfit", sans-serif;
 }
 
 /* ===== BASE ===== */
@@ -35,7 +34,6 @@ html.lenis body {
 }
 
 body {
-  font-family: "Outfit", sans-serif;
   background: var(--color-background);
   color: var(--color-foreground);
   overflow-x: hidden;

@@ -56,10 +56,10 @@ export async function generateMetadata({
     openGraph: {
       title: `Jasa Renovasi & Bangun Rumah di ${cityName}`,
       description: `Wujudkan rumah impian Anda di ${cityName} bersama ahlinya.`,
-      url: `https://kamibanturenovasi.com/lokasi/${resolvedParams.city}`,
+      url: `https://kamibanturenovasi.vercel.app/lokasi/${resolvedParams.city}`,
     },
     alternates: {
-      canonical: `https://kamibanturenovasi.com/lokasi/${resolvedParams.city}`,
+      canonical: `https://kamibanturenovasi.vercel.app/lokasi/${resolvedParams.city}`,
     },
   };
 }

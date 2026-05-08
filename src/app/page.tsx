@@ -1,5 +1,3 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import Navbar from "@/components/Navbar";
@@ -21,6 +19,11 @@ export default function Home() {
       <Navbar />
 
       <main>
+        {/* Visually hidden h1 for SEO — the visual heading is inside SequenceScroll canvas */}
+        <h1 className="sr-only">
+          Jasa Renovasi & Bangun Rumah Terpercaya se-Jawa Timur & Bali — KamiBantuRenovasi
+        </h1>
+
         {/* ====== HERO — Sequence Scroll ====== */}
         <SequenceScroll />
 

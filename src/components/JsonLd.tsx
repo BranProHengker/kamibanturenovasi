@@ -5,10 +5,10 @@ export default function JsonLd() {
     name: "KamiBantuRenovasi — PT. DENZEN ARKATAMA Group",
     alternateName: "KamiBantuRenovasi",
     description:
-      "Jasa renovasi rumah dan bangun rumah dari nol di Malang, Surabaya, Jawa Timur & Bali. Harga mulai ±4 juta per meter, bayar 100% setelah jadi. Gratis konsultasi.",
-    url: "https://kamibanturenovasi.com",
-    logo: "https://kamibanturenovasi.com/images/kamibanturenovasi-logo.PNG",
-    image: "https://kamibanturenovasi.com/images/kamibanturenovasi-logo.PNG",
+      "Jasa renovasi rumah dan bangun rumah dari nol se-Jawa Timur & Bali. Melayani Malang, Surabaya, Sidoarjo, Batu, Denpasar & sekitarnya. Harga mulai ±4 juta per meter, bayar 100% setelah jadi. Gratis konsultasi.",
+    url: "https://kamibanturenovasi.vercel.app",
+    logo: "https://kamibanturenovasi.vercel.app/images/kamibanturenovasi-logo.PNG",
+    image: "https://kamibanturenovasi.vercel.app/images/kamibanturenovasi-logo.PNG",
     telephone: "+6288989505936",
     email: "kamibanturenovasi@gmail.com",
     address: {
@@ -39,8 +39,23 @@ export default function JsonLd() {
         containedInPlace: { "@type": "State", name: "Jawa Timur" },
       },
       {
+        "@type": "City",
+        name: "Sidoarjo",
+        containedInPlace: { "@type": "State", name: "Jawa Timur" },
+      },
+      {
+        "@type": "City",
+        name: "Batu",
+        containedInPlace: { "@type": "State", name: "Jawa Timur" },
+      },
+      {
         "@type": "State",
         name: "Jawa Timur",
+      },
+      {
+        "@type": "City",
+        name: "Denpasar",
+        containedInPlace: { "@type": "State", name: "Bali" },
       },
       {
         "@type": "State",
@@ -66,7 +81,6 @@ export default function JsonLd() {
     },
     sameAs: [
       "https://instagram.com/kamibanturenovasi",
-      "https://tiktok.com/@kamibanturenovasi",
       "https://wa.me/6288989505936",
     ],
     hasOfferCatalog: {
@@ -126,9 +140,9 @@ export default function JsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "KamiBantuRenovasi",
-    url: "https://kamibanturenovasi.com",
+    url: "https://kamibanturenovasi.vercel.app",
     description:
-      "Jasa renovasi & bangun rumah terpercaya di Malang, Surabaya, Jawa Timur, dan Bali.",
+      "Jasa renovasi & bangun rumah terpercaya se-Jawa Timur & Bali.",
     publisher: {
       "@type": "Organization",
       name: "PT. DENZEN ARKATAMA Group",
@@ -141,10 +155,10 @@ export default function JsonLd() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Berapa biaya renovasi rumah per meter?",
+        name: "Berapa biaya renovasi rumah di Malang per meter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Harga mulai dari ±4 juta per meter, sudah termasuk biaya tukang, bahan-bahan, desain, dan estimasi pendanaan. Harga dapat menyesuaikan untuk wilayah di luar Jawa Timur & Bali.",
+          text: "Biaya renovasi rumah di Malang Kota dan Kabupaten Malang mulai dari ±4 juta per meter, sudah termasuk biaya tukang, bahan-bahan, desain, dan estimasi pendanaan. Harga dapat menyesuaikan untuk wilayah di luar Jawa Timur & Bali.",
         },
       },
       {
@@ -157,10 +171,18 @@ export default function JsonLd() {
       },
       {
         "@type": "Question",
+        name: "Apakah melayani renovasi di Kabupaten Malang?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ya, kami melayani seluruh wilayah Kabupaten Malang termasuk Kepanjen, Lawang, Singosari, Batu, Gondanglegi, Turen, dan sekitarnya. Tim kami berbasis di Malang sehingga respons cepat untuk area Malang Raya.",
+        },
+      },
+      {
+        "@type": "Question",
         name: "Wilayah mana saja yang dilayani?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Wilayah utama kami adalah Malang Kota, Kabupaten Malang, Surabaya, dan Bali. Kami juga melayani seluruh wilayah Jawa Timur dan Indonesia dengan penyesuaian biaya akomodasi.",
+          text: "Basis utama kami di Malang Raya (Kota Malang, Kabupaten Malang & Batu). Kami juga melayani se-Jawa Timur (Surabaya, Sidoarjo, dll.) dan Bali (Denpasar, dll.). Wilayah lain di Indonesia dilayani dengan penyesuaian biaya akomodasi.",
         },
       },
       {
@@ -169,6 +191,14 @@ export default function JsonLd() {
         acceptedAnswer: {
           "@type": "Answer",
           text: "Layanan kami meliputi: bangun rumah baru, renovasi rumah, pembangunan kos/ruko, pengecatan interior & eksterior, instalasi air & listrik, serta plafon & finishing.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Berapa lama proses renovasi rumah di Malang?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Durasi renovasi tergantung skala proyek. Renovasi ringan (pengecatan, plafon) bisa selesai 1-2 minggu. Renovasi menengah (dapur, kamar mandi) sekitar 2-4 minggu. Bangun rumah baru dari nol biasanya 3-6 bulan tergantung luas bangunan.",
         },
       },
     ],

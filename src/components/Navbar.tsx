@@ -271,16 +271,16 @@ export default function Navbar() {
                         Hubungi Kami
                       </p>
                       <a
-                        href="tel:+6281234567890"
+                        href="https://wa.me/6288989505936"
                         className="block text-sm text-white/60 hover:text-white transition-colors duration-300 mb-1"
                       >
                         088-989-505-936
                       </a>
                       <a
-                        href="mailto:hello@kamibanturenovasi.com"
+                        href="mailto:kamibanturenovasi@gmail.com"
                         className="block text-sm text-white/60 hover:text-white transition-colors duration-300"
                       >
-                        hello@kamibanturenovasi.com
+                        kamibanturenovasi@gmail.com
                       </a>
                     </div>
 
@@ -291,14 +291,13 @@ export default function Navbar() {
                       <div className="flex gap-5">
                         {[
                           { label: "Instagram", href: "https://instagram.com/kamibanturenovasi" },
-                          { label: "TikTok", href: "https://tiktok.com/@kamibanturenovasi" },
                           { label: "WhatsApp", href: "https://wa.me/6288989505936" },
                         ].map((s) => (
                           <a
                             key={s.label}
                             href={s.href}
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             className="text-sm text-white/60 hover:text-gold transition-colors duration-300"
                           >
                             {s.label}
@@ -333,22 +332,31 @@ export default function Navbar() {
                 <div className="flex items-center justify-between">
                   <div>
                     <a
-                      href="tel:+6281234567890"
+                      href="https://wa.me/6288989505936"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-xs text-white/50 hover:text-white transition-colors"
                     >
-                      +62 812-3456-7890
+                      +62 88-989-505-936
                     </a>
                   </div>
                   <div className="flex gap-4">
-                    {["IG", "WA", "FB"].map((s) => (
-                      <a
-                        key={s}
-                        href="#"
-                        className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[10px] text-white/50 hover:text-gold hover:border-gold/40 transition-all duration-300"
-                      >
-                        {s}
-                      </a>
-                    ))}
+                    <a
+                      href="https://instagram.com/kamibanturenovasi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[10px] text-white/50 hover:text-gold hover:border-gold/40 transition-all duration-300"
+                    >
+                      IG
+                    </a>
+                    <a
+                      href="https://wa.me/6288989505936"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[10px] text-white/50 hover:text-gold hover:border-gold/40 transition-all duration-300"
+                    >
+                      WA
+                    </a>
                   </div>
                 </div>
               </motion.div>

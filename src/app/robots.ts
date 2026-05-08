@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/_next/"],
+      disallow: ["/api/", "/_next/", "/dashboard/", "/login/"],
     },
-    sitemap: "https://kamibanturenovasi.com/sitemap.xml",
+    sitemap: "https://kamibanturenovasi.vercel.app/sitemap.xml",
   };
 }

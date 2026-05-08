@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
@@ -11,9 +11,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 const SITE_URL = "https://kamibanturenovasi.vercel.app";
 const SITE_NAME = "KamiBantuRenovasi";
 const SITE_TITLE =
-  "Jasa Renovasi & Bangun Rumah Terpercaya di Malang, Surabaya & Bali | KamiBantuRenovasi";
+  "Jasa Renovasi & Bangun Rumah di Malang — Terpercaya se-Jawa Timur & Bali | KamiBantuRenovasi";
 const SITE_DESCRIPTION =
-  "KamiBantuRenovasi — Jasa renovasi rumah & bangun rumah dari nol di Malang, Surabaya, Jawa Timur & Bali. Harga mulai ±4jt/meter, bayar 100% setelah jadi. Gratis konsultasi! ☎ 088-989-505-936";
+  "KamiBantuRenovasi — Jasa renovasi rumah & bangun rumah dari nol di Malang Kota, Kabupaten Malang & se-Jawa Timur hingga Bali. Harga mulai ±4jt/meter, bayar 100% setelah jadi. Gratis konsultasi! ☎ 088-989-505-936";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -23,34 +23,47 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    // Primary — Malang
+    // Primary — Malang Kota
     "jasa renovasi rumah Malang",
     "kontraktor renovasi rumah Malang",
     "jasa bangun rumah Malang",
     "renovasi rumah Malang",
     "jasa renovasi rumah Malang Kota",
-    "jasa renovasi rumah Kabupaten Malang",
     "kontraktor bangunan Malang",
     "biaya renovasi rumah Malang",
     "harga renovasi rumah Malang",
-    // Primary — Surabaya
+    "tukang renovasi rumah Malang",
+    "jasa renovasi dapur Malang",
+    "jasa renovasi kamar mandi Malang",
+    "jasa pengecatan rumah Malang",
+    "bangun rumah minimalis Malang",
+    // Primary — Kabupaten Malang
+    "jasa renovasi rumah Kabupaten Malang",
+    "jasa bangun rumah Kabupaten Malang",
+    "kontraktor rumah Kabupaten Malang",
+    "renovasi rumah Kepanjen",
+    "jasa bangun rumah Lawang",
+    "kontraktor rumah Singosari",
+    "jasa renovasi rumah Batu Malang",
+    "jasa bangun kos Malang",
+    // Secondary — Surabaya
     "jasa renovasi rumah Surabaya",
     "kontraktor renovasi rumah Surabaya",
     "jasa bangun rumah Surabaya",
     "renovasi rumah Surabaya",
     "biaya renovasi rumah Surabaya",
-    // Primary — Bali
+    "jasa bangun kos Surabaya",
+    // Secondary — Bali
     "jasa renovasi rumah Bali",
     "kontraktor bangunan Bali",
     "jasa bangun rumah Bali",
     "jasa bangun villa Bali",
     "renovasi rumah Bali",
-    // Broader
+    // Broader — Jawa Timur
     "jasa renovasi rumah Jawa Timur",
     "kontraktor rumah Jawa Timur",
     "jasa bangun rumah dari nol",
-    "jasa bangun kos Malang",
-    "jasa bangun kos Surabaya",
+    "jasa renovasi rumah Sidoarjo",
     "renovasi rumah minimalis modern",
     "jasa pengecatan rumah",
     "kontraktor rumah bayar setelah jadi",
@@ -116,7 +129,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${plusJakarta.className} antialiased`}
+        className={`${outfit.className} antialiased`}
         suppressHydrationWarning
       >
         {children}

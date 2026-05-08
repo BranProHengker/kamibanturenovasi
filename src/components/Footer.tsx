@@ -99,13 +99,10 @@ export default function Footer() {
 
               <p className="text-dark/40 text-sm tracking-[0.2em] uppercase mt-8 mb-4">Sosial Media</p>
               <div className="flex gap-4">
-                <a href="https://instagram.com/kamibanturenovasi" className="text-dark/60 text-base hover:text-gold transition-colors duration-200" target="_blank" rel="noopener">
+                <a href="https://instagram.com/kamibanturenovasi" className="text-dark/60 text-base hover:text-gold transition-colors duration-200" target="_blank" rel="noopener noreferrer">
                   Instagram
                 </a>
-                <a href="https://tiktok.com/@kamibanturenovasi" className="text-dark/60 text-base hover:text-gold transition-colors duration-200" target="_blank" rel="noopener">
-                  TikTok
-                </a>
-                <a href="https://wa.me/6288989505936" className="text-dark/60 text-base hover:text-gold transition-colors duration-200" target="_blank" rel="noopener">
+                <a href="https://wa.me/6288989505936" className="text-dark/60 text-base hover:text-gold transition-colors duration-200" target="_blank" rel="noopener noreferrer">
                   WhatsApp
                 </a>
               </div>
