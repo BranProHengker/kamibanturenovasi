@@ -29,9 +29,6 @@ importers:
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      puppeteer:
-        specifier: ^24.37.5
-        version: 24.37.5(typescript@5.9.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -63,6 +60,9 @@ importers:
       only-allow:
         specifier: ^1.2.2
         version: 1.2.2
+      puppeteer:
+        specifier: ^24.37.5
+        version: 24.37.5(typescript@5.9.3)
       tailwindcss:
         specifier: ^4
         version: 4.2.0
